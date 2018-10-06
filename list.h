@@ -3,6 +3,8 @@
  * list.h -- public interface to a list of cars
  */
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MAXREG 10
 
