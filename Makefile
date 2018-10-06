@@ -1,21 +1,24 @@
 CFLAGS = -Wall -pedantic -std=c11 -I. -g
 
-all:			test1 test2
+all:			list_test queue_test
 
-integrate.o:	integrate.c integrate.h
-				gcc $(CFLAGS) -c integrate.c
+list.o:			list.c list.h
+				gcc $(CFLAGS) -c list.c
 
-test1.o:		test1.c integrate.h
-				gcc $(CFLAGS) -c test1.c
+queue.o:		queue.c queue.h
+				gcc $(CFLAGS) -c queue.c
 
-test2.o:		test2.c integrate.h
-				gcc $(CLFAGS) -c test2.c
+list_test.o:	list_test.c list.h
+				gcc $(CFLAGS) -c list_test.c
 
-test1:			test1.o integrate.o
-				gcc $(CLFAGS) test1.o integrate.o -o test1
+queue_test.o:	queue_test.c queue.h
+				gcc $(CLFAGS) -c queue_test.c
 
-test2:			test2.o integrate.o
-				gcc $(CLFAGS) test2.o integrate.o -o test2
+list_test:		list_test.o list.o
+				gcc $(CLFAGS) list_test.o list.o -o list_test
+
+queue_test:		queue_test.o queue.o
+				gcc $(CLFAGS) queue_test.o queue.o -o queue_test
 
 clean:
-				rm -f *.o test1 test2
+				rm -f *.o list queue list_test queue_test

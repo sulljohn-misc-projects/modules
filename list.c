@@ -12,7 +12,9 @@ static car_t *front = NULL;
 int32_t lput(car_t *cp) {
     cp->next = front;
     front = cp;
+    return 0;
 }
+// TODO: how to return another number?
 
 /* get(): remove and return the first car in the list;
  * return NULL if the list is empty

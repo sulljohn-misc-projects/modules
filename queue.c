@@ -120,7 +120,7 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)) {
 void* qsearch(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
-
+    return 0;
 }
 
 /* search a queue using a supplied boolean function (as in qsearch),
@@ -130,13 +130,13 @@ void* qsearch(queue_t *qp,
 void* qremove(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
-
+    return 0;
 }
 
 /* concatenatenates elements of q2 into q1
  * q2 is dealocated, closed, and unusable upon completion
  */
 void qconcat(queue_t *q1p, queue_t *q2p) {
-
+    return;
 }
 
