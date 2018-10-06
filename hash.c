@@ -5,6 +5,11 @@
 #include <stdint.h>
 #include "hash.h"
 
+struct hashtable {
+    struct queue *table;
+    uint32_t size;
+};
+
 /* 
  * SuperFastHash() -- produces a number between 0 and the tablesize-1.
  * 
@@ -61,19 +66,56 @@ static uint32_t SuperFastHash(const char *data, int len, uint32_t tablesize) {
 
 /* hopen -- opens a hash table with initial size hsize */
 hashtable_t *hopen(uint32_t hsize) {
+    struct hashtable *ht;
 
+    // Allocating memory for the size that was given
+    if (!(ht = (struct hashtable*)malloc(sizeof(struct hashtable)))) {
+        printf("[Error: malloc failed allocating car]\n");
+        return NULL;
+    }
+
+    // Allocating memory for the size that was given
+    if (!(ht->table = malloc(sizeof(void*)))) {
+        printf("[Error: malloc failed allocating car]\n");
+        return NULL;
+    }
+
+    ht->size = hsize;
+
+    return ht;
 }
 
 /* hclose -- closes a hash table */
-void hclose(hashtable_t *htp);
+void hclose(hashtable_t *htp) {
+    struct hashtable *ht = (struct hashtable*)htp;
+
+    struct queue *curr = ht->table;
+
+    // Close up all the queues
+    for (int i = 0; i < ht->size; i++) {
+        qclose(curr);
+    }
+
+    // Close up internal table
+    free(ht->table);
+
+    // Close up hashtable
+    free(ht);
+}
 
 /* hput -- puts an entry into a hash table under designated key
  * returns 0 for success; non-zero otherwise
+ *
+ * ep seems to be elementp
  */
-int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen);
+int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
+
+}
 
 /* happly -- applies a function to every entry in hash table */
-void happly(hashtable_t *htp, void (*fn)(void *ep));
+void happly(hashtable_t *htp, void (*fn)(void *ep)) {
+
+}
 
 /* hsearch -- searchs for an entry under a designated key using a
  * designated search fn -- returns a pointer to the entry or NULL if
@@ -82,7 +124,9 @@ void happly(hashtable_t *htp, void (*fn)(void *ep));
 void *hsearch(hashtable_t *htp,
               bool (*searchfn)(void *elementp, const void *searchkeyp),
               const char *key,
-              int32_t keylen);
+              int32_t keylen) {
+
+}
 
 /* hremove -- removes and returns an entry under a designated key
  * using a designated search fn -- returns a pointer to the entry or
@@ -91,5 +135,6 @@ void *hsearch(hashtable_t *htp,
 void *hremove(hashtable_t *htp,
               bool (*searchfn)(void *elementp, const void *searchkeyp),
               const char *key,
-              int32_t keylen);
+              int32_t keylen) {
 
+}
