@@ -3,6 +3,7 @@
  *
  */
 #include <stdint.h>
+#include "hash.h"
 
 /* 
  * SuperFastHash() -- produces a number between 0 and the tablesize-1.
