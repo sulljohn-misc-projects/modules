@@ -40,6 +40,15 @@ int main() {
     qput(queue,p3);
     qput(queue,p4);
 
+    printf("Printing queue...\n");
+    qapply(queue,(void (*)(void*))print_plate);
+
+    printf("Getting plate of first-added element\n");
+    car_t *tmp = qget(queue);
+    printf("%s\n", tmp->plate);
+    free(tmp);
+
+    printf("Printing queue after element removed\n");
     qapply(queue,(void (*)(void*))print_plate);
 
     qclose(queue);

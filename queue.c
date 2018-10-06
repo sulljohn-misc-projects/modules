@@ -90,12 +90,15 @@ void* qget(queue_t *qp) {
     }
 
     struct Node *node = q->head;
+    void* data = node->data;
     q->head = q->head->next;
 
     // If head becomes null, tail should also become null
     if (q->head == NULL) q->tail = NULL;
 
-    return node;
+    // Removing associate node and returning data
+    free(node);
+    return data;
 }
 
 /* apply a function to every element of the queue */
@@ -121,6 +124,7 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)) {
 void* qsearch(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
+    // TODO: build this out for the hash table
     return 0;
 }
 
@@ -131,6 +135,7 @@ void* qsearch(queue_t *qp,
 void* qremove(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
+    // TODO: build this out for the hash table
     return 0;
 }
 
@@ -138,6 +143,7 @@ void* qremove(queue_t *qp,
  * q2 is dealocated, closed, and unusable upon completion
  */
 void qconcat(queue_t *q1p, queue_t *q2p) {
+    // TODO: build this out for the hash table
     return;
 }
 
