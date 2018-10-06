@@ -42,5 +42,7 @@ int main() {
 
     qapply(queue,(void (*)(void*))print_plate);
 
+    qclose(queue);
+
     return 0;
 }

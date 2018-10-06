@@ -43,11 +43,12 @@ void qclose(queue_t *qp) {
         prev = curr;
         curr = curr->next;
 
-        free(prev);
+        free(prev->data);   // Free the data
+        free(prev);         // Free the node
     }
 
     // Freeing the entire queue
-    free(q);
+    free(q);    // Free the queue
 }
 
 /* put element at the end of the queue
@@ -103,7 +104,7 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)) {
     struct Node *curr = q->head;
 
     while (curr != NULL) {
-        (*fn)(curr);
+        (*fn)(curr->data); // Applies function to data instead
         curr = curr->next;
     }
 }
