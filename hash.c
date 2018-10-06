@@ -75,12 +75,14 @@ hashtable_t *hopen(uint32_t hsize) {
     }
 
     // Allocating memory for the size that was given
-    if (!(ht->table = malloc(sizeof(void*)))) {
+    if (!(ht->table = malloc(sizeof(void*)*hsize))) {
         printf("[Error: malloc failed allocating car]\n");
         return NULL;
     }
 
     ht->size = hsize;
+
+    // TODO: Somehow the queues have to be opened in the table and this is not being done yet
 
     return ht;
 }
@@ -89,11 +91,12 @@ hashtable_t *hopen(uint32_t hsize) {
 void hclose(hashtable_t *htp) {
     struct hashtable *ht = (struct hashtable*)htp;
 
-    struct queue *curr = ht->table;
+    void *curr = (void *)ht->table;
 
     // Close up all the queues
     for (int i = 0; i < ht->size; i++) {
         qclose(curr);
+        curr++; // Incrementing the pointer
     }
 
     // Close up internal table
@@ -109,12 +112,25 @@ void hclose(hashtable_t *htp) {
  * ep seems to be elementp
  */
 int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
+    struct hashtable *ht = (struct hashtable*)htp;
 
+    // Getting what index of the table to put it in
+    uint32_t ind = SuperFastHash(key, keylen, ht->size);
+
+    // Adding it to the corresponding queue
+    qput(ht->table[ind], ep);
 }
 
 /* happly -- applies a function to every entry in hash table */
 void happly(hashtable_t *htp, void (*fn)(void *ep)) {
+    struct hashtable *ht = (struct hashtable*)htp;
 
+    void *curr = (void *)ht->table;
+
+    for (int i = 0; i < ht->size; i++) {
+        qapply(curr, fn);
+        curr++;
+    }
 }
 
 /* hsearch -- searchs for an entry under a designated key using a
