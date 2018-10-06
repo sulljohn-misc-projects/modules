@@ -8,7 +8,7 @@
 #include "hash.h"
 
 struct hashtable {
-    struct queue *table;
+    queue_t *table;
     uint32_t size;
 };
 
@@ -84,7 +84,12 @@ hashtable_t *hopen(uint32_t hsize) {
 
     ht->size = hsize;
 
-    // TODO: Somehow the queues have to be opened in the table and this is not being done yet
+    queue_t *curr = ht->table;
+
+    for (int i = 0; i < hsize; i++) {
+        curr = qopen();
+        curr++;
+    }
 
     return ht;
 }
@@ -119,15 +124,17 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
     // Getting what index of the table to put it in
     uint32_t ind = SuperFastHash(key, keylen, ht->size);
 
+    queue_t* table = ht->table;
+
     // Adding it to the corresponding queue
-    qput(ht->table[ind], ep);
+    qput(&table[ind], ep);
 }
 
 /* happly -- applies a function to every entry in hash table */
 void happly(hashtable_t *htp, void (*fn)(void *ep)) {
     struct hashtable *ht = (struct hashtable*)htp;
 
-    void *curr = (void *)ht->table;
+    void *curr = ht->table;
 
     for (int i = 0; i < ht->size; i++) {
         qapply(curr, fn);
