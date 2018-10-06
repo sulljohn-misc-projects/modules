@@ -1,3 +1,5 @@
+//Test
+
 /* 
  * hash.c -- implements a generic hash table as an indexed set of queues.
  *
