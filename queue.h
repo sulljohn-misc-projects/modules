@@ -4,6 +4,8 @@
  */
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /* the queue representation is hidden from users of the module */
 typedef void queue_t;		

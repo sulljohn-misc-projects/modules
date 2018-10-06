@@ -1,8 +1,36 @@
-//
-// Created by John Sullivan on 10/5/18.
-//
+/**
+ * Created by John Sullivan on 10/5/18.
+ *
+ * Ideas from: https://www.geeksforgeeks.org/queue-set-2-linked-list-implementation/
+ */
 
 #include "queue.h"
+
+struct Node {
+    void *next;
+    void *data;
+};
+
+struct queue {
+    Node *head;
+    Node *tail;
+};
+
+/* create an empty queue */
+queue_t* qopen(void) {
+    struct queue *q;
+
+    // Allocating memory, returning if fails
+    if (!(q = (struct queue_t*)malloc(sizeof(struct queue_t)))) {
+        printf("[Error: malloc failed allocating car]\n");
+        return NULL;
+    }
+
+    q->head = NULL;
+    q->tail = NULL;
+
+    return q;
+}
 
 /* deallocate a queue, frees everything in it */
 void qclose(queue_t *qp) {
@@ -13,17 +41,58 @@ void qclose(queue_t *qp) {
  * returns 0 is successful; nonzero otherwise
  */
 int32_t qput(queue_t *qp, void *elementp) {
+    queue* q = (queue*)qp;
 
+    struct Node *node;
+
+    // Allocating memory, returning if fails
+    if (!(node = (struct Node*)malloc(sizeof(struct Node)))) {
+        printf("[Error: malloc failed allocating car]\n");
+        return 1;
+    }
+
+    node->next=NULL;
+    node->data=elementp;
+
+    // If nothing in the queue yet
+    if (q->tail == NULL) {
+        q->head = node;
+        q->tail = node;
+    } else {
+        q->tail->next = node;
+        q->tail = node;
+    }
+
+    return 0;
 }
 
 /* get the first first element from queue, removing it from the queue */
 void* qget(queue_t *qp) {
+    queue* q = (queue*)qp;
 
+    // If queue is empty
+    if (q->head == NULL) {
+        return NULL;
+    }
+
+    struct Node *node = q->head;
+    q->head = q->head->next;
+
+    // If head becomes null, tail should also become null
+    if (q->head == NULL) q->tail = NULL;
+
+    return node;
 }
 
 /* apply a function to every element of the queue */
 void qapply(queue_t *qp, void (*fn)(void* elementp)) {
+    queue* q = (queue*)qp;
+    Node *curr = q->head;
 
+    while (curr != NULL) {
+        (*fn)(curr);
+        curr = curr->next;
+    }
 }
 
 /* search a queue using a supplied boolean function
@@ -57,3 +126,4 @@ void* qremove(queue_t *qp,
 void qconcat(queue_t *q1p, queue_t *q2p) {
 
 }
+
