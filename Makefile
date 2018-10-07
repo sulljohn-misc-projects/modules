@@ -26,8 +26,8 @@ list_test:		list_test.o list.o
 queue_test:		queue_test.o queue.o
 				gcc $(CLFAGS) queue_test.o queue.o -o queue_test
 
-hash_test:		hash_test.o hash.o
-				gcc $(CLFAGS) hash_test.o hash.o -o hash_test
+hash_test:		hash_test.o hash.o queue.o
+				gcc $(CLFAGS) hash_test.o hash.o queue.o -o hash_test
 
 clean:
 				rm -f *.o list queue hash list_test queue_test hash_test
