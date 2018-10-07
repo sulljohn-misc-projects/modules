@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include "hash.h"
 #include "queue.h"
-#include "List.h"
+#include "list.h"
 
 
 car_t *make_car(char* plate, double price, int year) {
@@ -28,15 +28,10 @@ void print_plate(car_t *cp) {
 	printf("%s\n", cp->plate);
 }
 
-bool *searchfn(void* elementp,const void* keyp) {
-    struct Node *curr = h->head;                                                     
-    while (curr != NULL) {                                                           
-        (*searchfn)(curr->data,skeyp); // Applies function to data instead           
-        curr = curr->next;                                                           
-    }                                                                                
-                                                                                     
-                                                                                     
-    return 0;                                                                        
+bool searchfn(void* elementp,const void* keyp) {
+    car_t* carp = (car_t*)elementp;
+
+    return strcmp(carp->plate,keyp)==0;
 } 
 
 int main() {
@@ -45,21 +40,19 @@ int main() {
 	car_t *p3 = make_car("543216789",17000,2017);
 	car_t *p4 = make_car("678905432",12000,2012);
 
-	hashtable_t* hash = hopen();
+	hashtable_t* hash = hopen(1024);
 
-	hput(hash,p1);
-	hput(hash,p2);
-	hput(hash,p3);
-	hput(hash,p4);
+	hput(hash,p1,p1->plate,sizeof(p1->plate));
+	hput(hash,p2,p2->plate,sizeof(p2->plate));
+	hput(hash,p3,p3->plate,sizeof(p3->plate));
+	hput(hash,p4,p4->plate,sizeof(p4->plate));
 
 	printf("printing hash...\n");
 	happly(hash,(void (*)(void*))print_plate);
 
 	printf("Searching for hash with search function");
-	car_t *tmp = searchfn(hash, p1) {
-		printf("%s\n", tmp->p1);
-		free(tmp);
-	};
+	car_t *tmp = searchfn(hash, p1);
+    printf("%s\n", tmp->plate);
 
 	hclose(hash);
 	
