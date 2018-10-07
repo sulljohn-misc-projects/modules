@@ -55,6 +55,12 @@ int main() {
 	printf("printing hash...\n");
 	happly(hash,(void (*)(void*))print_plate);
 
+	printf("Searching for hash with search function");
+	car_t *tmp = searchfn(hash, p1) {
+		printf("%s\n", tmp->p1);
+		free(tmp);
+	};
+
 	hclose(hash);
 	
 	return 0;
