@@ -14,7 +14,7 @@ int32_t lput(car_t *cp) {
     front = cp;
     return 0;
 }
-// TODO: how to return another number?
+// TODO: how to return another number other than 0, also for other functions?
 
 /* get(): remove and return the first car in the list;
  * return NULL if the list is empty

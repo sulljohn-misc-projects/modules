@@ -89,6 +89,7 @@ void* qget(queue_t *qp) {
         return NULL;
     }
 
+    // Rest is for if the queue is NOT empty
     struct Node *node = q->head;
     void* data = node->data;
     q->head = q->head->next;
@@ -128,12 +129,13 @@ void* qsearch(queue_t *qp,
     struct Node *curr = q->head;
 
     while (curr != NULL) {
-        (*searchfn)(curr->data,skeyp); // Applies function to data instead
+        if ((*searchfn)(curr->data,skeyp)) {  // Applies function to data instead
+            return curr->data;
+        }
         curr = curr->next;
     }
 
-
-    return 0;
+    return NULL;
 }
 
 /* search a queue using a supplied boolean function (as in qsearch),
@@ -143,17 +145,42 @@ void* qsearch(queue_t *qp,
 void* qremove(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
+    struct queue* q = (struct queue*)qp;
 
+    struct Node *prev = NULL;
+    struct Node *curr = q->head;
 
+    // Case if at front of list
+    if (searchfn(curr->data, skeyp)) {
+        q->head = curr->next;
 
-    return 0;
+        // Delinking curr's next ptr
+        curr->next = NULL;
+        return(curr->data);
+    }
+
+    // Searching rest of list
+    while (curr != NULL) {
+
+        if (searchfn(curr->data, skeyp)) {
+            prev->next = curr->next;
+            curr->next = NULL;
+            return curr;
+        }
+
+        // Delinking curr's next ptr
+        prev = curr;
+        curr = curr->next;
+    }
+
+    return NULL;
 }
 
 /* concatenatenates elements of q2 into q1
  * q2 is dealocated, closed, and unusable upon completion
  */
 void qconcat(queue_t *q1p, queue_t *q2p) {
-    // TODO: build this out for the hash table
+    // TODO: build out this function (does not seem extremely impt)
     return;
 }
 
