@@ -40,7 +40,7 @@ int main() {
     car_t *p3 = make_car("543216789", 17000, 2017);
     car_t *p4 = make_car("678905432", 12000, 2012);
 
-    hashtable_t *hash = hopen(4);
+    hashtable_t *hash = hopen(1024);
 
     hput(hash, p1, p1->plate, sizeof(p1->plate));
     hput(hash, p2, p2->plate, sizeof(p2->plate));
@@ -50,7 +50,7 @@ int main() {
     printf("printing hash...\n");
     happly(hash, (void (*)(void *)) print_plate);
 
-    printf("Searching for hash with search function");
+    printf("Searching for hash with search function\n");
     car_t *tmp = hsearch(hash, searchfn, "123456789", sizeof("123456789"));
     printf("%s\n", tmp->plate);
 

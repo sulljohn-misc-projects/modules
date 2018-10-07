@@ -87,8 +87,7 @@ hashtable_t *hopen(uint32_t hsize) {
     queue_t **curr = ht->table;
 
     for (int i = 0; i < hsize; i++) {
-        *curr = qopen();
-        curr++;
+        curr[i] = qopen();
     }
 
     return ht;
@@ -98,11 +97,11 @@ hashtable_t *hopen(uint32_t hsize) {
 void hclose(hashtable_t *htp) {
     struct hashtable *ht = (struct hashtable*)htp;
 
-    void *curr = (void *)ht->table;
+    queue_t **curr = ht->table;
 
     // Close up all the queues
     for (int i = 0; i < ht->size; i++) {
-        qclose(curr);
+        qclose(*curr);
         curr++; // Incrementing the pointer
     }
 
@@ -121,24 +120,25 @@ void hclose(hashtable_t *htp) {
 int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
     struct hashtable *ht = (struct hashtable*)htp;
 
-    queue_t* table = ht->table;
+    queue_t** table = ht->table;
 
     // Getting what index of the table to put it in
     uint32_t ind = SuperFastHash(key, keylen, ht->size);
 
     // Adding it to the corresponding queue
-    qput(&table[ind], ep);
+    qput(table[ind], ep);
 }
 
 /* happly -- applies a function to every entry in hash table */
 void happly(hashtable_t *htp, void (*fn)(void *ep)) {
     struct hashtable *ht = (struct hashtable*)htp;
 
-    void *curr = ht->table;
+    queue_t **curr = ht->table;
 
     for (int i = 0; i < ht->size; i++) {
-        qapply(curr, fn);
-        curr++;
+        queue_t *q = curr[i];
+
+        qapply(q, fn);
     }
 }
 
@@ -153,7 +153,7 @@ void *hsearch(hashtable_t *htp,
 
     struct hashtable *ht = (struct hashtable*)htp;
 
-    queue_t* table = ht->table;
+    queue_t** table = ht->table;
 
     // Getting what index of the table to put it in
     uint32_t ind = SuperFastHash(key, keylen, ht->size);

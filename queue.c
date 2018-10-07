@@ -129,7 +129,7 @@ void* qsearch(queue_t *qp,
     struct Node *curr = q->head;
 
     while (curr != NULL) {
-        if ((*searchfn)(curr->data,skeyp)) {  // Applies function to data instead
+        if ((searchfn)(curr->data,skeyp)) {  // Applies function to data instead
             return curr->data;
         }
         curr = curr->next;
