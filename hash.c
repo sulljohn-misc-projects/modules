@@ -8,7 +8,7 @@
 #include "hash.h"
 
 struct hashtable {
-    queue_t *table;
+    queue_t **table;
     uint32_t size;
 };
 
@@ -84,10 +84,10 @@ hashtable_t *hopen(uint32_t hsize) {
 
     ht->size = hsize;
 
-    queue_t *curr = ht->table;
+    queue_t **curr = ht->table;
 
     for (int i = 0; i < hsize; i++) {
-        curr = qopen();
+        *curr = qopen();
         curr++;
     }
 
