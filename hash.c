@@ -127,6 +127,8 @@ int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
 
     // Adding it to the corresponding queue
     qput(table[ind], ep);
+
+    return 0; // TODO: How to make this return something else?
 }
 
 /* happly -- applies a function to every entry in hash table */
@@ -173,11 +175,11 @@ void *hremove(hashtable_t *htp,
 
     struct hashtable *ht = (struct hashtable*)htp;
 
-    queue_t* table = ht->table;
+    queue_t** table = ht->table;
 
     // Getting what index of the table to put it in
     uint32_t ind = SuperFastHash(key, keylen, ht->size);
 
     // Using qsearch to search in the appropriate queue
-    return qremove(&table[ind], searchfn, key);
+    return qremove(table[ind], searchfn, key);
 }
