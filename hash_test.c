@@ -4,8 +4,11 @@
 
 #include <stdio.h>
 #include "hash.h"
+#include "queue.h"
+#include "List.h"
 
-car *make_car(char* plate, double price, int year) {
+
+car_t *make_car(char* plate, double price, int year) {
 	car_t* pp;      
     // Allocating memory, returning if fails
     if (!(pp = (car_t*)malloc(sizeof(car_t)))) {                               
@@ -20,6 +23,21 @@ car *make_car(char* plate, double price, int year) {
 	strcpy(pp->plate, plate);
 	return pp;                                               
 }
+
+void print_plate(car_t *cp) {
+	printf("%s\n", cp->plate);
+}
+
+bool *searchfn(void* elementp,const void* keyp) {
+    struct Node *curr = h->head;                                                     
+    while (curr != NULL) {                                                           
+        (*searchfn)(curr->data,skeyp); // Applies function to data instead           
+        curr = curr->next;                                                           
+    }                                                                                
+                                                                                     
+                                                                                     
+    return 0;                                                                        
+} 
 
 int main() {
 	car_t *p1 = make_car("123456789",20000,2016);
