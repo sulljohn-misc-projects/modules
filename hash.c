@@ -121,10 +121,10 @@ void hclose(hashtable_t *htp) {
 int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen) {
     struct hashtable *ht = (struct hashtable*)htp;
 
+    queue_t* table = ht->table;
+
     // Getting what index of the table to put it in
     uint32_t ind = SuperFastHash(key, keylen, ht->size);
-
-    queue_t* table = ht->table;
 
     // Adding it to the corresponding queue
     qput(&table[ind], ep);
@@ -142,7 +142,7 @@ void happly(hashtable_t *htp, void (*fn)(void *ep)) {
     }
 }
 
-/* hsearch -- searchs for an entry under a designated key using a
+/* hsearch -- searches for an entry under a designated key using a
  * designated search fn -- returns a pointer to the entry or NULL if
  * not found
  */
@@ -151,6 +151,15 @@ void *hsearch(hashtable_t *htp,
               const char *key,
               int32_t keylen) {
 
+    struct hashtable *ht = (struct hashtable*)htp;
+
+    queue_t* table = ht->table;
+
+    // Getting what index of the table to put it in
+    uint32_t ind = SuperFastHash(key, keylen, ht->size);
+
+    // Using qsearch to search in the appropriate queue
+    return qsearch(&table[ind], searchfn, key);
 }
 
 /* hremove -- removes and returns an entry under a designated key
@@ -162,4 +171,13 @@ void *hremove(hashtable_t *htp,
               const char *key,
               int32_t keylen) {
 
+    struct hashtable *ht = (struct hashtable*)htp;
+
+    queue_t* table = ht->table;
+
+    // Getting what index of the table to put it in
+    uint32_t ind = SuperFastHash(key, keylen, ht->size);
+
+    // Using qsearch to search in the appropriate queue
+    return qremove(&table[ind], searchfn, key);
 }

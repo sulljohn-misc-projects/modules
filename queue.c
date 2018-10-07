@@ -124,7 +124,15 @@ void qapply(queue_t *qp, void (*fn)(void* elementp)) {
 void* qsearch(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
-    // TODO: build this out for the hash table
+    struct queue* q = (struct queue*)qp;
+    struct Node *curr = q->head;
+
+    while (curr != NULL) {
+        (*searchfn)(curr->data,skeyp); // Applies function to data instead
+        curr = curr->next;
+    }
+
+
     return 0;
 }
 
@@ -135,7 +143,9 @@ void* qsearch(queue_t *qp,
 void* qremove(queue_t *qp,
               bool (*searchfn)(void* elementp,const void* keyp),
               const void* skeyp) {
-    // TODO: build this out for the hash table
+
+
+
     return 0;
 }
 
