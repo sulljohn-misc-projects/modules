@@ -26,72 +26,150 @@ void print_plate(car_t *cp) {
 
 int main(int argc, char **argv) {
   
-  if(atoi(argv[1]) == 1) { 
-    printf("Printing from an empty list.\n");
-    car_t *tmp1 = lget();
-		free(tmp1);
-		if(tmp1 == NULL) {
-			exit(EXIT_SUCCESS);
-		}
-  } else if(atoi(argv[1]) == 10) {
-    printf("Printing all other plates\n"); //apply() from an empty list
-    lapply(print_plate);
-  } else if(atoi(argv[1]) == 6) {
-    if(lremove("123456789") == NULL) { //remove() from an empty list
-			exit(EXIT_SUCCESS);
-		} else {
-			exit(EXIT_FAILURE);
-		}
-    printf("Printing all plates with 123... removed\n");
-    lapply(print_plate);
-  }
+	int input = atoi(argv[1]);
+
+	printf("%d\n", input);
   
   car_t *p1 = make_car("123456789",20000,2016);
   car_t *p2 = make_car("098765432",15000,2015);
   car_t *p3 = make_car("543216789",17000,2017);
   car_t *p4 = make_car("678905432",12000,2012);
 
-  if(atoi(argv[1]) == 2) {
-    lput(p1); //put() to an empty list
-  } else if(atoi(argv[1]) == 3) {
-    lput(p1);
-    lput(p2); //put() to a non-empty list
-  } else if(atoi(argv[1]) == 4) {
-    lput(p1); //lget() from a non-empty list
-    lput(p2);
-    printf("Printing from a non-empty list.\n");
-    car_t *tmp2 = lget();
-    printf("%s\n", tmp2->plate);
-    free(tmp2);
-  } else if(atoi(argv[1]) == 5) { //apply() from a non-empty list
-    lput(p1);
-    printf("Printing all other plates\n");
-    lapply(print_plate);
-  } else {
-    lput(p1);
-    lput(p2);
-    lput(p3);
-    lput(p4);
-  }
+	switch (input) {
+	case 1:
+		printf("Putting to an empty list..\n");
 
-  if(atoi(argv[1]) == 7) {
-    free(lremove("123456789"));
+		if (lput(p1) == 0) {
+			printf("Good\n");
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Bad\n");
+			exit(EXIT_FAILURE);
 
-    printf("Printing all plates with 123... removed\n");
-    lapply(print_plate);
-  } else if(atoi(argv[1]) == 8) {
-    printf("Removing head\n");
-    free(lremove("543216789"));
+		}
+	case 2:
+		printf("Putting to a non-empty list...\n");
 
-    printf("Printing all plates with 543... removed\n");
-    lapply(print_plate);
-  } else if(atoi(argv[1]) == 9) {
-    printf("Removing last element in linked list\n");
-    free(lget());
+		lput(p1);
 
-    printf("Should print nothing ...\n");
-    lapply(print_plate);
-  }
+		if(lput(p2) == 0) {
+			printf("Good\n");
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Bad\n");
+			exit(EXIT_FAILURE);
+		}
+	case 3:
+		printf("Getting from an empty list...\n");
 
-  exit(EXIT_SUCCESS);
-}
+		car_t *tmp1 = lget();
+		free(tmp1);
+
+		if(tmp1 == NULL) {
+			printf("Good\n");
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Bad\n");
+			exit(EXIT_FAILURE);
+		}
+	case 4:
+		printf("Getting from a non-empty list...\n");
+
+		lput(p1);
+
+		car_t *tmp2 = lget();
+
+		if(tmp2 != NULL) {
+			printf("Got plate: \n");
+			printf("%s\n", tmp2->plate);
+			free(tmp2);
+			printf("Good\n");
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Bad\n");
+			exit(EXIT_FAILURE);
+		}
+	case 5:
+		printf("lapply() on an empty list...\n");
+
+		lapply(print_plate);
+
+		printf("Good\n");
+		exit(EXIT_SUCCESS);
+	case 6:
+		printf("lapply() from a non-empty list...\n");
+
+		lput(p1);
+
+		lapply(print_plate);
+
+		printf("Good\n");
+		exit(EXIT_SUCCESS);
+	case 7:
+		printf("lremove() from an empty list...\n");
+
+		car_t *tmp3 = lremove("123456789");
+		free(tmp3);
+
+		if (tmp3 == NULL) {
+			free(tmp3);
+			printf("Good\n");
+			exit(EXIT_SUCCESS);
+		} else {
+			printf("Bad\n");
+			exit(EXIT_FAILURE);
+		}
+	case 8:
+		printf("Removing last element (tail) in list...\n");
+
+		lput(p1);
+		lput(p2);
+		lput(p3);
+		lput(p4);
+
+		printf("Printing all plates\n");
+		lapply(print_plate);
+
+		free(lremove("678905432"));
+
+		printf("Printing all plates with the last one removed...\n");
+		lapply(print_plate);
+
+		printf("Good\n");
+		exit(EXIT_SUCCESS);
+	case 9:
+		printf("Removing first element (head of the list...\n");
+
+		lput(p1);
+		lput(p2);
+		lput(p3);
+		lput(p4);
+
+		printf("Printing all plates\n");
+		lapply(print_plate);
+
+		free(lremove("123456789"));
+
+		printf("Printing all plates with the first one removed...\n");
+		lapply(print_plate);
+
+		printf("Good\n");
+		exit(EXIT_SUCCESS);
+	case 10:
+		printf("Removing a middle element of the queue...\n");                   
+
+		lput(p1);
+		lput(p2);
+		lput(p3);
+		lput(p4);
+
+		printf("Printing all plates\n");
+		lapply(print_plate);
+
+		printf("Good\n");
+		exit(EXIT_SUCCESS);
+	default:
+		printf("Bad\n");
+		exit(EXIT_FAILURE);
+	}
+} 
