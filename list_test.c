@@ -3,6 +3,7 @@
 #include "queue.h"
 #include "hash.h"
 
+
 car_t *make_car(char *plate, double price, int year) {
     car_t *pp;
 
@@ -32,7 +33,11 @@ void lclose() {
     }
 }
 
+
 int main(int argc, char **argv) {
+
+//    printf("hello\n");
+//    return 0;
 
     int in = atoi(argv[1]);
 
