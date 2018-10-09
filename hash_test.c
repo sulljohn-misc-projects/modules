@@ -36,18 +36,20 @@ bool searchfn(void *elementp, const void *keyp) {
 int main(int argc, char **argv) {
     if (argc != 2) exit(EXIT_FAILURE);
 
-    int input = atoi(argv[1]);
+    int in = atoi(argv[1]);
 
     hashtable_t *hash = hopen(1024);
 
-    car_t *p1 = make_car("123456789", 20000, 2016);
-    car_t *p2 = make_car("098765432", 15000, 2015);
-    car_t *p3 = make_car("543216789", 17000, 2017);
-    car_t *p4 = make_car("678905432", 12000, 2012);
+    car_t *p1;
+    car_t *p2;
+    car_t *p3;
+    car_t *p4;
 
-    switch (input) {
+    switch (in) {
         case 1:
             printf("Putting to an empty hashtable...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
 
             if (hput(hash, p1, p1->plate, sizeof(p1->plate)) == 0) {
                 printf("Good\n");
@@ -60,6 +62,9 @@ int main(int argc, char **argv) {
             }
         case 2:
             printf("Putting to a non-empty hashtable...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
 
             hput(hash, p1, p1->plate, sizeof(p1->plate));
 
@@ -89,6 +94,9 @@ int main(int argc, char **argv) {
         case 4:
             printf("Searching non-empty hashtable...\n");
 
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+
             hput(hash, p1, p1->plate, sizeof(p1->plate));
             hput(hash, p2, p2->plate, sizeof(p2->plate));
 
@@ -116,6 +124,11 @@ int main(int argc, char **argv) {
             exit(EXIT_SUCCESS);
         case 6:
             printf("Printing from a non-empty hashtable...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
 
             hput(hash, p1, p1->plate, sizeof(p1->plate));
             hput(hash, p2, p2->plate, sizeof(p2->plate));
@@ -148,6 +161,11 @@ int main(int argc, char **argv) {
         case 8:
             printf("Removing last element added from hashtable...\n");
 
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
+
             hput(hash, p1, p1->plate, sizeof(p1->plate));
             hput(hash, p2, p2->plate, sizeof(p2->plate));
             hput(hash, p3, p3->plate, sizeof(p3->plate));
@@ -167,6 +185,11 @@ int main(int argc, char **argv) {
         case 9:
             printf("Removing first element added from hashtable...\n");
 
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
+
             hput(hash, p1, p1->plate, sizeof(p1->plate));
             hput(hash, p2, p2->plate, sizeof(p2->plate));
             hput(hash, p3, p3->plate, sizeof(p3->plate));
@@ -185,6 +208,11 @@ int main(int argc, char **argv) {
             exit(EXIT_SUCCESS);
         case 10:
             printf("Removing element added in middle from hashtable...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
 
             hput(hash, p1, p1->plate, sizeof(p1->plate));
             hput(hash, p2, p2->plate, sizeof(p2->plate));
