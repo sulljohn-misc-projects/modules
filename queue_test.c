@@ -30,15 +30,15 @@ void print_plate(car_t *cp) {
 int main(int argc, char **argv) {
   queue_t* queue = qopen();
   
-  if(argv[1] == 1) {
+  if(atoi(argv[1]) == 1) {
     printf("Printing from an empty list.\n");
     car_t *tmp1 = qget();
     printf("%s\n", tmp1->plate);
     free(tmp1);
-  } else if(argv[1] == 4) {
+  } else if(atoi(argv[1]) == 4) {
     printf("Printing all other plates\n"); //apply() from an empty list                          
     qapply(queue,(void (*)(void*))print_plate);
-  } else if(argv[1] == 6) {
+  } else if(atoi(argv[1]) == 6) {
     free(qremove(queue, searchfn, "123456789", sizeof("123456789"))); //remove() from an empty list                                    
     printf("Printing all plates with 123... removed\n");
     qapply(print_plate);
@@ -51,19 +51,19 @@ int main(int argc, char **argv) {
 
   //queue_t* queue = qopen();
 
-  if(argv[1] == 2) {
+  if(atoi(argv[1]) == 2) {
     qput(queue,p1); //put() to an empty list
-  } else if(argv[1] == 3) {
+  } else if(atoi(argv[1]) == 3) {
     qput(queue,p1);
     qput(queue,p2);
-  } else if(argv[1] == 4) {
+  } else if(atoi(argv[1]) == 4) {
     qput(p1); //get() from a non-empty list                                                      
     qput(p2);
     printf("Printing from a non-empty list.\n");
     car_t *tmp2 = qget();
     printf("%s\n", tmp2->plate);
     free(tmp2);
-  } else if(argv[1] == 5) { //apply() from a non-empty list                                       
+  } else if(atoi(argv[1]) == 5) { //apply() from a non-empty list                                       
     qput(p1);
     printf("Printing all other plates\n");
     qapply(print_plate);
@@ -74,18 +74,18 @@ int main(int argc, char **argv) {
     qput(queue,p4);
   }
 
-  if(argv[1] == 7) {
+  if(atoi(argv[1]) == 7) {
     free(qremove(queue, searchfn, "123456789", sizeof("123456789")));
 
     printf("Printing all plates with 123... removed\n");
     qapply(queue,(void (*)(void*))print_plate);
-  } else if(argv[1] == 8) {
+  } else if(atoi(argv[1]) == 8) {
     printf("Removing head\n");
     free(qremove(queue, searchfn, "543216789", sizeof("543216789")));
 
     printf("Printing all plates with 543... removed\n");
     qapply(queue,(void (*)(void*))print_plate);
-  } else if(argv[1] == 9) {
+  } else if(atoi(argv[1]) == 9) {
     printf("Removing last element in linked list\n");
     free(qget());
 
