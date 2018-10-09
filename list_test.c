@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include <list.h>
-// #include "queue.h"
-// #include "hash.h"
+#include "list.h"
+#include "queue.h"
+#include "hash.h"
 
 car_t *make_car(char* plate, double price, int year) {
     car_t* pp;
@@ -26,15 +26,15 @@ void print_plate(car_t *cp) {
 
 int main(int argc, char **argv) {
   
-  if(argv[1] == 1) { 
+  if(atoi(argv[1]) == 1) {
     printf("Printing from an empty list.\n");
     car_t *tmp1 = lget();
     printf("%s\n", tmp1->plate);
     free(tmp1);
-  } else if(argv[1] == 4) {
+  } else if(atoi(argv[1]) == 4) {
     printf("Printing all other plates\n"); //apply() from an empty list
     lapply(print_plate);
-  } else if(argv[1] == 6) {
+  } else if(atoi(argv[1]) == 6) {
     free(lremove("123456789")); //remove() from an empty list
     printf("Printing all plates with 123... removed\n");
     lapply(print_plate);
@@ -45,19 +45,19 @@ int main(int argc, char **argv) {
   car_t *p3 = make_car("543216789",17000,2017);
   car_t *p4 = make_car("678905432",12000,2012);
 
-  if(argv[1] == 2) {
+  if(atoi(argv[1]) == 2) {
     lput(p1); //put() to an empty list
-  } else if(argv[1] == 3) {
+  } else if(atoi(argv[1]) == 3) {
     lput(p1);
     lput(p2); //put() to a non-empty list
-  } else if(argv[1] == 4) {
+  } else if(atoi(argv[1]) == 4) {
     lput(p1); //lget() from a non-empty list
     lput(p2);
     printf("Printing from a non-empty list.\n");
     car_t *tmp2 = lget();
     printf("%s\n", tmp2->plate);
     free(tmp2);
-  } else if(argv[1] == 5) { //apply() from a non-empty list
+  } else if(atoi(argv[1]) == 5) { //apply() from a non-empty list
     lput(p1);
     printf("Printing all other plates\n");
     lapply(print_plate);
@@ -68,49 +68,24 @@ int main(int argc, char **argv) {
     lput(p4);
   }
 
-  if(argv[1] == 7) {
+  if(atoi(argv[1]) == 7) {
     free(lremove("123456789"));
 
     printf("Printing all plates with 123... removed\n");
     lapply(print_plate);
-  } else if(argv[1] == 8) {
+  } else if(atoi(argv[1]) == 8) {
     printf("Removing head\n");
     free(lremove("543216789"));
 
     printf("Printing all plates with 543... removed\n");
     lapply(print_plate);
-  } else if(argv[1] == 9) {
+  } else if(atoi(argv[1]) == 9) {
     printf("Removing last element in linked list\n");
     free(lget());
 
     printf("Should print nothing ...\n");
     lapply(print_plate);
   }
-
-/*printf("Printing first plate\n");
-  car_t *tmp = lget();
-  printf("%s\n", tmp->plate);
-  free(tmp);
-
-  printf("Printing all other plates\n");
-  lapply(print_plate);
-
-  free(lremove("123456789"));
-
-  printf("Printing all plates with 123... removed\n");
-  lapply(print_plate);
-
-  lremove("Removing head\n");
-  free(lremove("543216789"));
-
-  printf("Printing all plates with 543... removed\n");
-  lapply(print_plate);
-
-  printf("Removing last element in linked list\n");
-  free(lget());
-
-  printf("Should print nothing ...\n");
-  lapply(print_plate); */
 
   exit(EXIT_SUCCESS);
 }
