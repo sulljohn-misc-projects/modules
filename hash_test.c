@@ -3,9 +3,9 @@
 //
 
 #include <stdio.h>
-#include "hash.h"
-#include "queue.h"
-#include "list.h"
+#include <hash.h>
+#include <queue.h>
+#include <list.h>
 
 
 car_t *make_car(char *plate, double price, int year) {
@@ -13,7 +13,7 @@ car_t *make_car(char *plate, double price, int year) {
     // Allocating memory, returning if fails
     if (!(pp = (car_t *) malloc(sizeof(car_t)))) {
         printf("[Error: malloc failed allocating car]\n");
-        return NULL;
+        exit(EXIT_FAILURE);
     }
 
     // Setting parts of object based on criteria
@@ -56,5 +56,5 @@ int main() {
 
     hclose(hash);
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }
