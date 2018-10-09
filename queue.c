@@ -150,6 +150,8 @@ void* qremove(queue_t *qp,
     struct Node *prev = NULL;
     struct Node *curr = q->head;
 
+    if (q->head == NULL) return NULL;
+
     // Case if at front of list
     if (searchfn(curr->data, skeyp)) {
         q->head = curr->next;
