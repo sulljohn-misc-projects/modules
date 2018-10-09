@@ -204,6 +204,40 @@ int main(int argc, char **argv) {
             printf("Good\n");
             qclose(queue);
             exit(EXIT_SUCCESS);
+        case 11:
+            printf("Searching empty queue...\n");
+
+            car_t *tmp4 = qsearch(queue, searchfn, "123456789");
+
+            if (tmp4 == NULL) {
+                printf("Good\n");
+                qclose(queue);
+                exit(EXIT_SUCCESS);
+            } else {
+                printf("Bad\n");
+                qclose(queue);
+                exit(EXIT_FAILURE);
+            }
+        case 12:
+            printf("Searching non-empty queue...\n");
+
+            qput(queue, p1);
+            qput(queue, p2);
+
+            car_t *tmp5 = qsearch(queue, searchfn, "123456789");
+
+            if (tmp5 != NULL) {
+                printf("Got plate: \n");
+                printf("%s\n", tmp5->plate);
+
+                printf("Good\n");
+                qclose(queue);
+                exit(EXIT_SUCCESS);
+            } else {
+                printf("Bad\n");
+                qclose(queue);
+                exit(EXIT_FAILURE);
+            }
         default:
             printf("Bad\n");
             qclose(queue);
