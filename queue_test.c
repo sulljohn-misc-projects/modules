@@ -38,8 +38,6 @@ int main(int argc, char **argv) {
 
     int input = atoi(argv[1]);
 
-    printf("%d\n",input);
-
     queue_t *queue = qopen();
 
     car_t *p1 = make_car("123456789", 20000, 2016);
@@ -53,9 +51,11 @@ int main(int argc, char **argv) {
 
             if (qput(queue, p1) == 0) {
                 printf("Good\n");
+                qclose(queue);
                 exit(EXIT_SUCCESS);
             } else {
                 printf("Bad\n");
+                qclose(queue);
                 exit(EXIT_FAILURE);
             }
         case 2:
@@ -65,9 +65,11 @@ int main(int argc, char **argv) {
 
             if (qput(queue, p2) == 0) {
                 printf("Good\n");
+                qclose(queue);
                 exit(EXIT_SUCCESS);
             } else {
                 printf("Bad\n");
+                qclose(queue);
                 exit(EXIT_FAILURE);
             }
         case 3:
@@ -76,13 +78,13 @@ int main(int argc, char **argv) {
             car_t *tmp1 = qget(queue);
             free(tmp1);
 
-            qclose(queue);
-
             if (tmp1 == NULL) {
                 printf("Good\n");
+                qclose(queue);
                 exit(EXIT_SUCCESS);
             } else {
                 printf("Bad\n");
+                qclose(queue);
                 exit(EXIT_FAILURE);
             }
         case 4:
@@ -97,10 +99,13 @@ int main(int argc, char **argv) {
                 printf("Got plate: \n");
                 printf("%s\n", tmp2->plate);
                 free(tmp2);
+
                 printf("Good\n");
+                qclose(queue);
                 exit(EXIT_SUCCESS);
             } else {
                 printf("Bad\n");
+                qclose(queue);
                 exit(EXIT_FAILURE);
             }
         case 5:
@@ -109,6 +114,7 @@ int main(int argc, char **argv) {
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
+            qclose(queue);
             exit(EXIT_SUCCESS);
         case 6:
             printf("Printing from a non-empty queue...\n");
@@ -121,25 +127,28 @@ int main(int argc, char **argv) {
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
+            qclose(queue);
             exit(EXIT_SUCCESS);
         case 7:
             printf("Removing from empty list...\n");
 
             car_t *tmp3 = qremove(queue, searchfn, "123456789");
-            free(tmp3);
-
-            qclose(queue);
 
             if (tmp3 == NULL) {
                 free(tmp3);
+
                 printf("Good\n");
+                qclose(queue);
                 exit(EXIT_SUCCESS);
             } else {
+                free(tmp3);
+
                 printf("Bad\n");
+                qclose(queue);
                 exit(EXIT_FAILURE);
             }
         case 8:
-            printf("Removing last element (tail) in linked list...\n");
+            printf("Removing last element (tail) in hashtable...\n");
 
             qput(queue, p1);
             qput(queue, p2);
@@ -155,6 +164,7 @@ int main(int argc, char **argv) {
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
+            qclose(queue);
             exit(EXIT_SUCCESS);
         case 9:
             printf("Removing first element (head) of the queue...\n");
@@ -173,6 +183,7 @@ int main(int argc, char **argv) {
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
+            qclose(queue);
             exit(EXIT_SUCCESS);
         case 10:
             printf("Removing a middle element of the queue...\n");
@@ -191,9 +202,11 @@ int main(int argc, char **argv) {
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
+            qclose(queue);
             exit(EXIT_SUCCESS);
         default:
             printf("Bad\n");
+            qclose(queue);
             exit(EXIT_FAILURE);
     }
 }

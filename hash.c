@@ -1,6 +1,4 @@
-//Test
-
-/* 
+/*
  * hash.c -- implements a generic hash table as an indexed set of queues.
  *
  */
@@ -161,7 +159,7 @@ void *hsearch(hashtable_t *htp,
     uint32_t ind = SuperFastHash(key, keylen, ht->size);
 
     // Using qsearch to search in the appropriate queue
-    return qsearch(&table[ind], searchfn, key);
+    return qsearch(table[ind], searchfn, key);
 }
 
 /* hremove -- removes and returns an entry under a designated key
