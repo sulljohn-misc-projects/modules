@@ -28,8 +28,6 @@ car_t *lget() {
     front = next;
     tmp->next = NULL;
 
-		if(tmp->next == NULL) return NULL;
-
     return tmp;
 }
 
