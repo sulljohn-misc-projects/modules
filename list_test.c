@@ -24,6 +24,14 @@ void print_plate(car_t *cp) {
     printf("%s\n", cp->plate);
 }
 
+void lclose() {
+    car_t *tmp;
+
+    while ((tmp = lget()) != NULL) {
+        free(tmp);
+    }
+}
+
 int main(int argc, char **argv) {
   
 	int input = atoi(argv[1]);
@@ -41,9 +49,11 @@ int main(int argc, char **argv) {
 
 		if (lput(p1) == 0) {
 			printf("Good\n");
+			lclose();
 			exit(EXIT_SUCCESS);
 		} else {
 			printf("Bad\n");
+            lclose();
 			exit(EXIT_FAILURE);
 
 		}
@@ -54,9 +64,11 @@ int main(int argc, char **argv) {
 
 		if(lput(p2) == 0) {
 			printf("Good\n");
+            lclose();
 			exit(EXIT_SUCCESS);
 		} else {
 			printf("Bad\n");
+            lclose();
 			exit(EXIT_FAILURE);
 		}
 	case 3:
@@ -67,9 +79,11 @@ int main(int argc, char **argv) {
 
 		if(tmp1 == NULL) {
 			printf("Good\n");
+            lclose();
 			exit(EXIT_SUCCESS);
 		} else {
 			printf("Bad\n");
+            lclose();
 			exit(EXIT_FAILURE);
 		}
 	case 4:
@@ -83,10 +97,13 @@ int main(int argc, char **argv) {
 			printf("Got plate: \n");
 			printf("%s\n", tmp2->plate);
 			free(tmp2);
+
 			printf("Good\n");
+            lclose();
 			exit(EXIT_SUCCESS);
 		} else {
 			printf("Bad\n");
+            lclose();
 			exit(EXIT_FAILURE);
 		}
 	case 5:
@@ -95,6 +112,7 @@ int main(int argc, char **argv) {
 		lapply(print_plate);
 
 		printf("Good\n");
+		lclose();
 		exit(EXIT_SUCCESS);
 	case 6:
 		printf("lapply() from a non-empty list...\n");
@@ -104,6 +122,7 @@ int main(int argc, char **argv) {
 		lapply(print_plate);
 
 		printf("Good\n");
+		lclose();
 		exit(EXIT_SUCCESS);
 	case 7:
 		printf("lremove() from an empty list...\n");
@@ -113,10 +132,13 @@ int main(int argc, char **argv) {
 
 		if (tmp3 == NULL) {
 			free(tmp3);
+
 			printf("Good\n");
+            lclose();
 			exit(EXIT_SUCCESS);
 		} else {
 			printf("Bad\n");
+            lclose();
 			exit(EXIT_FAILURE);
 		}
 	case 8:
@@ -136,6 +158,7 @@ int main(int argc, char **argv) {
 		lapply(print_plate);
 
 		printf("Good\n");
+        lclose();
 		exit(EXIT_SUCCESS);
 	case 9:
 		printf("Removing first element (head of the list...\n");
@@ -154,6 +177,7 @@ int main(int argc, char **argv) {
 		lapply(print_plate);
 
 		printf("Good\n");
+        lclose();
 		exit(EXIT_SUCCESS);
 	case 10:
 		printf("Removing a middle element of the queue...\n");                   
@@ -163,10 +187,16 @@ int main(int argc, char **argv) {
 		lput(p3);
 		lput(p4);
 
-		printf("Printing all plates\n");
-		lapply(print_plate);
+        printf("Printing all plates\n");
+        lapply(print_plate);
+
+        free(lremove("543216789"));
+
+        printf("Printing all plates with the first one removed...\n");
+        lapply(print_plate);
 
 		printf("Good\n");
+        lclose();
 		exit(EXIT_SUCCESS);
 	default:
 		printf("Bad\n");

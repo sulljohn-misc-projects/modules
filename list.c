@@ -55,7 +55,7 @@ car_t *lremove(char *platep) {
         // Delinking curr's next ptr
         curr->next = NULL;
 				
-				return(curr);
+		return(curr);
     }
 
     // Searching rest of list
