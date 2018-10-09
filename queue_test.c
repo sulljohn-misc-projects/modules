@@ -1,10 +1,10 @@
 //
 // Created by John Sullivan on 10/5/18.
 //
-
 #include <stdio.h>
-#include <queue.h>
-#include <list.h>
+#include <stdlib.h>
+#include "queue.h"
+#include "list.h"
 
 car_t *make_car(char* plate, double price, int year) {
     car_t* pp;
