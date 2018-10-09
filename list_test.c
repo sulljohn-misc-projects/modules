@@ -26,14 +26,20 @@ void print_plate(car_t *cp) {
 
 int main(int argc, char **argv) {
   
-  if(argv[1] == 1) { 
+  if(atoi(argv[1] == 1) { 
     printf("Printing from an empty list.\n");
     car_t *tmp1 = lget();
-    printf("%s\n", tmp1->plate);
-    free(tmp1);
-  } else if(argv[1] == 4) {
+		free(tmp1);
+		if(*tmp1 == NULL) {
+			exit(EXIT_SUCCESS);
+		}
+  } else if(argv[1] == 10) {
     printf("Printing all other plates\n"); //apply() from an empty list
-    lapply(print_plate);
+    if(lapply(print_plate) == NULL) {
+			exit(EXIT_SUCCESS);
+		} else {
+			exit(EXIT_FAILURE);
+		}
   } else if(argv[1] == 6) {
     free(lremove("123456789")); //remove() from an empty list
     printf("Printing all plates with 123... removed\n");
