@@ -182,7 +182,12 @@ void* qremove(queue_t *qp,
  * q2 is dealocated, closed, and unusable upon completion
  */
 void qconcat(queue_t *q1p, queue_t *q2p) {
-    // TODO: build out this function (does not seem extremely impt)
+    void* elem;
+
+    while ((elem = qget(q2p)) != NULL) qput(q1p, elem);
+
+    qclose(q2p);
+
     return;
 }
 

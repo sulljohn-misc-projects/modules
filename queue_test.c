@@ -238,6 +238,32 @@ int main(int argc, char **argv) {
                 qclose(queue);
                 exit(EXIT_FAILURE);
             }
+        case 13:
+            printf("Concatenating two queues...");
+
+            queue_t *queue2 = qopen();
+
+            qput(queue, p1);
+            qput(queue, p2);
+
+            qput(queue2, p3);
+            qput(queue2, p4);
+
+            printf("Printing queue 1\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            printf("Printing queue 2\n");
+            qapply(queue2, (void (*)(void *)) print_plate);
+
+            printf("Concatenating...\n");
+            qconcat(queue, queue2);
+
+            printf("Printing concatenated queue\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            printf("Good\n");
+            qclose(queue);
+            exit(EXIT_SUCCESS);
         default:
             printf("Bad\n");
             qclose(queue);
