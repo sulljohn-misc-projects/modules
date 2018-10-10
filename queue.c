@@ -157,8 +157,8 @@ void* qremove(queue_t *qp,
         q->head = curr->next;
 
         // Delinking curr's next ptr
-        curr->next = NULL;
-        return(curr->data);
+        free(curr); // Need to free the node that holds the data
+        return curr->data;
     }
 
     // Searching rest of list
@@ -166,11 +166,12 @@ void* qremove(queue_t *qp,
 
         if (searchfn(curr->data, skeyp)) {
             prev->next = curr->next;
-            curr->next = NULL;
-            return curr;
+
+            // Delinking curr's next ptr
+            free(curr); // Need to free the node that holds the data
+            return curr->data;
         }
 
-        // Delinking curr's next ptr
         prev = curr;
         curr = curr->next;
     }
