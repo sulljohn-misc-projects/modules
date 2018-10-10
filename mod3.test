@@ -15,22 +15,22 @@ while [ ${Y} -le 3 ] ; do
 		if [ ${Y} -eq 1 ] ; then
 				while [ ${X} -le 10 ] ; do
 						runtest.sh "list_test ${X}"
-						valgrind --leak-check=yes --log-fd=1 -q "./list_test ${X}" | grep -q "in use at exit: 0 bytes in 0 blocks"
-						valgrind.sh "echo $?"
+						valgrind --leak-check=yes --log-fd=1 -q ./list_test ${X} | grep -q "in use at exit: 0 bytes in 0 blocks"
+						echo $?
 						let X=X+1
 				done
 		elif [ ${Y} -eq 2 ] ; then
 				while [ ${X} -le 13 ] ; do
             runtest.sh "queue_test ${X}"
-						valgrind --leak-check=yes --log-fd=1 -q "./queue_test ${X}" | grep -q "in use at exit: 0 bytes in 0 blocks"
-						valgrind.sh "echo $?"
+						valgrind --leak-check=yes --log-fd=1 -q ./queue_test ${X} | grep -q "in use at exit: 0 bytes in 0 blocks"
+						echo $?
             let X=X+1
         done
 		else
 				while [ ${X} -le 10 ] ; do
 						runtest.sh "hash_test ${X}"
-						valgrind --leak-check=yes --log-fd=1 -q "./hash_test ${X}" | grep -q "in use at exit: 0 bytes in 0 blocks"
-            valgrind.sh "echo $?"
+						valgrind --leak-check=yes --log-fd=1 -q ./hash_test ${X} | grep -q "in use at exit: 0 bytes in 0 blocks"
+            echo $?
 						let X=X+1
 				done
 		fi

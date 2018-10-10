@@ -11,7 +11,7 @@ CMD=$1
 RESVAL=$?
 # decide what to print based on the result
 if [ ${RESVAL} == 0 ] ; then
-		echo -e "Grind me up scotty  : ${CMD}"
+		echo -e "Valgrind result  : ${CMD}"
 elif [ ${RESVAL} == 139 ] ; then
 		echo -e "\033[93mSegFault\033[0m to grind : ${CMD}"
 else
