@@ -1,19 +1,13 @@
 #!/bin/bash
 if [ $# != 1 ]; then
-		echo 'usage: runtest "command arg1 ... argN"'
+		echo 'usage: valgrind.sh "command arg1 ... argN"'
 		exit 
 fi
-# execute the command passed as the first argument
-CMD=$1
-# run command discarding output from command & shell
-{ ${CMD} >& /dev/null ; } >& /dev/null
-# get the result from the last command
+valgrind --leak-check=yes $1 2>&1 | grep -q "in use at exit: 0 bytes in 0 blocks"
 RESVAL=$?
 # decide what to print based on the result
 if [ ${RESVAL} == 0 ] ; then
-		echo -e "Valgrind result  : ${CMD}"
-elif [ ${RESVAL} == 139 ] ; then
-		echo -e "\033[93mSegFault\033[0m to grind : ${CMD}"
+		echo -e "No memory leaks detected"
 else
-		echo -e "\033[91mFailed\033[0m   : ${CMD}"
+		echo -e "!!! Memory leak detected"
 fi
