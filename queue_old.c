@@ -149,7 +149,6 @@ void* qremove(queue_t *qp,
 
     struct Node *prev = NULL;
     struct Node *curr = q->head;
-    void* data; // For holding data that is dereferenced
 
     if (q->head == NULL) return NULL;
 
@@ -158,9 +157,8 @@ void* qremove(queue_t *qp,
         q->head = curr->next;
 
         // Delinking curr's next ptr
-        data = curr->data;
         free(curr); // Need to free the node that holds the data
-        return data;
+        return curr->data;
     }
 
     // Searching rest of list
@@ -170,9 +168,8 @@ void* qremove(queue_t *qp,
             prev->next = curr->next;
 
             // Delinking curr's next ptr
-            data = curr->data;
             free(curr); // Need to free the node that holds the data
-            return data;
+            return curr->data;
         }
 
         prev = curr;

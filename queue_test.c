@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 
     switch (in) {
         case 1:
-            printf("Putting to an empty list...\n");
+            printf("Putting to an empty queue...\n");
 
             p1 = make_car("123456789", 20000, 2016);
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
             }
         case 2:
-            printf("Putting to a non-empty list...\n");
+            printf("Putting to a non-empty queue...\n");
 
             p1 = make_car("123456789", 20000, 2016);
             p2 = make_car("098765432", 15000, 2015);
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
             }
         case 3:
-            printf("Getting from an empty list...\n");
+            printf("Getting from an empty queue...\n");
 
             car_t *tmp1 = qget(queue);
             free(tmp1);
@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
             }
         case 4:
-            printf("Getting from a non-empty list...\n");
+            printf("Getting from a non-empty queue...\n");
 
             p1 = make_car("123456789", 20000, 2016);
             p2 = make_car("098765432", 15000, 2015);
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
             }
         case 5:
-            printf("Printing an empty list...\n");
+            printf("Printing an empty queue...\n");
 
             qapply(queue, (void (*)(void *)) print_plate);
 
@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
             qclose(queue);
             exit(EXIT_SUCCESS);
         case 7:
-            printf("Removing from empty list...\n");
+            printf("Removing from empty queue...\n");
 
             car_t *tmp3 = qremove(queue, searchfn, "123456789");
 
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
             }
         case 8:
-            printf("Removing last element (tail) in hashtable...\n");
+            printf("Removing last element (tail) of queue...\n");
 
             p1 = make_car("123456789", 20000, 2016);
             p2 = make_car("098765432", 15000, 2015);
@@ -295,6 +295,33 @@ int main(int argc, char **argv) {
             qconcat(queue, queue2);
 
             printf("Printing concatenated queue\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            printf("Good\n");
+            qclose(queue);
+            exit(EXIT_SUCCESS);
+        case 14:
+            printf("Removing all elements of queue...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
+
+            qput(queue, p1);
+            qput(queue, p2);
+            qput(queue, p3);
+            qput(queue, p4);
+
+            printf("Printing all plates\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            free(qremove(queue, searchfn, "123456789"));
+            free(qremove(queue, searchfn, "098765432"));
+            free(qremove(queue, searchfn, "543216789"));
+            free(qremove(queue, searchfn, "678905432"));
+
+            printf("Printing queue with all removed...\n");
             qapply(queue, (void (*)(void *)) print_plate);
 
             printf("Good\n");
