@@ -9,6 +9,16 @@ all:			list_test queue_test hash_test
 %.o:  ../src/%.c ../src/%.h
 			$(GCC) $(CFLAGS) $(XFLAGS) -c $<
 
+# make the object codes for the tests
+list_test.o:	../test/list_test.c
+						$(GCC) $(CFLAGS) $(XFLAGS) -c $<
+
+queue_test.o:	../test/queue_test.c
+						$(GCC) $(CFLAGS) $(XFLAGS) -c $<
+
+hash_test.o:	../test/hash_test.c
+						$(GCC) $(CFLAGS) $(XFLAGS) -c $<
+
 # make the executables
 list_test:	list_test.o list.o
 						$(GCC) $(CFLAGS) $(XFLAGS) list_test.o list.o -o $@
