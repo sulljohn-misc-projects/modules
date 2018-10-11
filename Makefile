@@ -9,3 +9,6 @@ gcov:
 
 gprof:
 			(cd ./build; make clean; make gprof XFLAGS='-pg -O'; make clean)
+
+clean:
+			(cd ./build; make clean)
