@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# suppress pushd and popd output                                               
+pushd () {                                                                     
+    command pushd "$@" > /dev/null                                             
+}                                                                            
+popd () {                                                                     
+		command popd "$@" > /dev/null                                               
+}
+
+Y=1
+pushd .
+while [ ${Y} -le 3 ] ; do
+		X=1
+		if [ ${Y} -eq 1 ] ; then
+				while [ ${X} -le 10 ] ; do
+						runtest.sh "list_test ${X}"
+						valgrind.sh "list_test ${X}"
+						let X=X+1
+				done
+		elif [ ${Y} -eq 2 ] ; then
+				while [ ${X} -le 13 ] ; do
+            runtest.sh "queue_test ${X}"
+						valgrind.sh "queue_test ${X}"
+            let X=X+1
+        done
+		else
+				while [ ${X} -le 10 ] ; do
+						runtest.sh "hash_test ${X}"
+						valgrind.sh "hash_test ${X}"
+						let X=X+1
+				done
+		fi
+		let Y=Y+1
+done
+popd
