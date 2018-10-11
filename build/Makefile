@@ -35,13 +35,13 @@ gcov: list_test queue_test hash_test
 			gcov queue.c
 			gcov list.c
 
-gprof:	queue_test
+# --brief to condense output
+gprof:	queue_test 
 			runtest.sh "queue_test 14"
-			gprof --brief queue_test
-			gmon.out>gprof.analysis
+			gprof queue_test gmon.out >gprof.analysis
 
 clean:
-				rm -f *.o *.gcno *.analysis *.out list_test queue_test hash_test
+				rm -f *.o *.gcno *.out list_test queue_test hash_test
 
 # run all the tests
 tests:
