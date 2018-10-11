@@ -41,7 +41,7 @@ gprof:	queue_test
 			gmon.out >gprof.analysis
 
 clean:
-				rm -f *.o *.gcno *.analysis list_test queue_test hash_test
+				rm -f *.o *.gcno *.analysis *.out list_test queue_test hash_test
 
 # run all the tests
 tests:
