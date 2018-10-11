@@ -300,6 +300,33 @@ int main(int argc, char **argv) {
             printf("Good\n");
             qclose(queue);
             exit(EXIT_SUCCESS);
+        case 14:
+            printf("Removing all elements of queue...\n");
+
+            p1 = make_car("123456789", 20000, 2016);
+            p2 = make_car("098765432", 15000, 2015);
+            p3 = make_car("543216789", 17000, 2017);
+            p4 = make_car("678905432", 12000, 2012);
+
+            qput(queue, p1);
+            qput(queue, p2);
+            qput(queue, p3);
+            qput(queue, p4);
+
+            printf("Printing all plates\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            free(qremove(queue, searchfn, "123456789"));
+            free(qremove(queue, searchfn, "098765432"));
+            free(qremove(queue, searchfn, "543216789"));
+            free(qremove(queue, searchfn, "678905432"));
+
+            printf("Printing queue with all removed...\n");
+            qapply(queue, (void (*)(void *)) print_plate);
+
+            printf("Good\n");
+            qclose(queue);
+            exit(EXIT_SUCCESS);
         default:
             printf("Bad\n");
             qclose(queue);
