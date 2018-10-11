@@ -19,7 +19,7 @@ while [ ${Y} -le 3 ] ; do
 						let X=X+1
 				done
 		elif [ ${Y} -eq 2 ] ; then
-				while [ ${X} -le 13 ] ; do
+				while [ ${X} -le 14 ] ; do
             runtest.sh "queue_test ${X}"
 						valgrind.sh "queue_test ${X}"
             let X=X+1
