@@ -38,7 +38,7 @@ gcov: list_test queue_test hash_test
 gprof:	queue_test
 			runtest.sh "queue_test 14"
 			gprof --brief queue_test
-			gmon.out >gprof.analysis
+			gmon.out>gprof.analysis
 
 clean:
 				rm -f *.o *.gcno *.analysis *.out list_test queue_test hash_test
